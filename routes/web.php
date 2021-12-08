@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Blog\PostController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RestTestController;
 
 /*
 |--------------------------------------------------------------------------
