@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Models\BlogCategory;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -11,7 +14,7 @@ class CategoryController extends BaseController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|Response
+     * @return Application|Factory|View|Response
      */
     public function index()
     {
@@ -44,23 +47,26 @@ class CategoryController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return Application|Factory|View|Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        dd(__METHOD__);
+        $item = BlogCategory::findOrFail($id);
+        $categoryList = BlogCategory::all();
+
+        return view('blog.admin.category.edit', compact('item', 'categoryList'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        dd(__METHOD__);
+        dd(__METHOD__, $request->all(), $id);
     }
 }
