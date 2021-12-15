@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Blog\Admin;
 
+use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -61,16 +63,17 @@ class CategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param BlogCategoryUpdateRequest $request
      * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(Request $request, int $id)
+    public function update(BlogCategoryUpdateRequest $request, int $id): RedirectResponse
     {
+
         $item = BlogCategory::find($id);
         if (empty($item)) {
             return back()
-                ->withErrors(['msg' => "Запись id:[{$id}] не найдена"])
+                ->withErrors(['msg' => "Запись id:[$id] не найдена"])
                 ->withInput();
         }
 
