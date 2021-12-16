@@ -30,7 +30,7 @@ class BlogPostFactory extends Factory
             'category_id' => rand(1, 11),
             'user_id' => (rand(1, 5) == 5) ? 1 : 2,
             'title' => $title,
-            'slug' =>Str::slug($title, '_'),
+            'slug' => Str::slug($title, '_'),
             'excerpt' => $this->faker->text(rand(40, 100)),
             'content_raw' => $txt,
             'content_html' => $txt,

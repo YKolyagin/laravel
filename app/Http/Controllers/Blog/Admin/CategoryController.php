@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Blog\Admin;
 
+use App\Http\Requests\BlogCategoryCreateRequest;
 use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 
 class CategoryController extends BaseController
 {
@@ -28,22 +29,39 @@ class CategoryController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function create()
     {
-        dd(__METHOD__);
+        $item = new BlogCategory();
+        $categoryList = BlogCategory::all();
+
+        return view('blog.admin.categories.edit', compact('item', 'categoryList') );
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param BlogCategoryCreateRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(BlogCategoryCreateRequest $request): RedirectResponse
     {
-        dd(__METHOD__);
+        $data = $request->input();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['title'], '_');
+        }
+
+        //Создаст обьект и добавит в базу
+        $item = (new BlogCategory())->create($data);
+
+        if ($item) {
+            return redirect()->route('blog.admin.categories.edit', [$item->id])
+                ->with(['success' => 'Успешно сохранено']);
+        }else{
+            return back()->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
@@ -78,7 +96,12 @@ class CategoryController extends BaseController
         }
 
         $data = $request->all();
-        $result = $item->fill($data)->save();
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['title'], '_');
+        }
+
+        $result = $item->update($data);
 
         if ($result) {
             return redirect()
