@@ -69,6 +69,7 @@ class CategoryController extends BaseController
      * Show the form for editing the specified resource.
      *
      * @param int $id
+     * @param BlogCategoryRepository $categoryRepository
      * @return Application|Factory|View|Response
      */
     public function edit(int $id, BlogCategoryRepository $categoryRepository)
