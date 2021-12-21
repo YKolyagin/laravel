@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\BlogCategory
@@ -13,8 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $slug
  * @property string $title
  * @property string|null $description
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory newQuery()
@@ -27,7 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class BlogCategory extends Model
 {
