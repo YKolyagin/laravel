@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
  * Class BlogCategoryRepository
  *
  * @package App\Repositories
+ * @method Model startConditions()
  */
 
 class   BlogCategoryRepository extends CoreRepository

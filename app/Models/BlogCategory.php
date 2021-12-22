@@ -30,6 +30,9 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereUpdatedAt($value)
  * @mixin Eloquent
+ * @method static \Illuminate\Database\Query\Builder|BlogCategory onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|BlogCategory withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|BlogCategory withoutTrashed()
  */
 class BlogCategory extends Model
 {

@@ -42,6 +42,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|BlogPost withTrashed()
  * @method static \Illuminate\Database\Query\Builder|BlogPost withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Database\Factories\BlogPostFactory factory(...$parameters)
  */
 class BlogPost extends Model
 {
