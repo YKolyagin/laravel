@@ -47,5 +47,18 @@ class BlogPostRepository extends CoreRepository
 
         return $result;
     }
+
+    /**
+     * Получить модель статьи для редактировная в админке
+     *
+     * @param int $id
+     *
+     * @return Model
+     */
+
+    public function getEdit(int $id): Model
+    {
+        return $this->startConditions()->find($id);
+    }
 }
 
