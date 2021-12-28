@@ -78,10 +78,10 @@ class PostController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show(int $id)
     {
         //
     }
@@ -89,10 +89,10 @@ class PostController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Application|Factory|View|Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $item = $this->blogPostRepository->getEdit($id);
         if (empty($item))
@@ -122,15 +122,6 @@ class PostController extends BaseController
         }
 
         $data = $request->all();
-
-        if (empty($data['slug']))
-        {
-            $data['slug'] = Str::slug($data['title']);
-        }
-        if (empty($item->published_at) && $data['is_published'])
-        {
-            $data['published_at'] = Carbon::now();
-        }
 
         $result = $item->update($data);
 

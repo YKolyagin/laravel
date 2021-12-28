@@ -64,9 +64,6 @@ class CategoryController extends BaseController
     public function store(BlogCategoryCreateRequest $request): RedirectResponse
     {
         $data = $request->input();
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title'], '_');
-        }
 
         //Создаст обьект и добавит в базу
         $item = (new BlogCategory())->create($data);
@@ -115,10 +112,6 @@ class CategoryController extends BaseController
         }
 
         $data = $request->all();
-
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title'], '_');
-        }
 
         $result = $item->update($data);
 
