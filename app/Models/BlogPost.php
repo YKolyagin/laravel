@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\BlogPost
  *
  * @property int $id
  * @property int $category_id
- * @property int $user_id
  * @property string $slug
  * @property string $title
  * @property string|null $excerpt
@@ -20,9 +21,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $content_html
  * @property int $is_published
  * @property string|null $published_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|BlogPost newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BlogPost newQuery()
  * @method static \Illuminate\Database\Query\Builder|BlogPost onlyTrashed()
@@ -42,13 +43,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|BlogPost whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|BlogPost withTrashed()
  * @method static \Illuminate\Database\Query\Builder|BlogPost withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
  * @method static \Database\Factories\BlogPostFactory factory(...$parameters)
  */
 class BlogPost extends Model
 {
     use SoftDeletes;
     use HasFactory;
+
+    const UNKNOWN_USER = 1;
 
     protected $fillable
         = [
@@ -59,7 +62,6 @@ class BlogPost extends Model
             'content_raw',
             'is_published',
             'published_at',
-            'user_id',
         ];
 
     /**
