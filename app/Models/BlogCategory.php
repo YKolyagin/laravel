@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -38,6 +39,8 @@ class BlogCategory extends Model
 {
     use SoftDeletes;
 
+    const ROOT = 1;
+
     protected $fillable
         = [
             'title',
@@ -45,4 +48,25 @@ class BlogCategory extends Model
             'parent_id',
             'description',
         ];
+
+    /**
+     * Получить родительскую категорию
+     *
+     * @return BelongsTo
+     */
+    public function parentCategory(): BelongsTo
+    {
+        return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
+    }
+
+    public function getParentTitleAttribute(): string
+    {
+        $title = $this->parentCategory->title ?? ($this->isRoot() ? 'Корень' : '???');
+        return $title;
+    }
+
+    public function isRoot(): bool
+    {
+        return $this->id === BlogCategory::ROOT;
+    }
 }
